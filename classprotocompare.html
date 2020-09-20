@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+
+        function Calculator(){   //미완성코드
+            this.$value1 = null;
+            this.operator = null;
+            this.$value2 = null;
+            this.$output = null;
+            this.init();
+            this.initEvent();
+        };
+
+        Calcualtor.prototype.init = function(){
+            this.$value1 = $("#val1");
+            this.operator = $("#op");
+            this.$value2 = $("#val2");
+            this.$output = $("#output");
+        }
+
+        Calculator.prototype.initEvent = function(){
+            var obj = this;
+            $("#cal").click(function(){
+                onj.exeCaculate();
+            })
+        }
+
+        Calculator.prototype.plus=function(){
+            var total = 0;
+            var $arr = init();
+            for(a of $arr){
+                if(isNaN(a)==false){
+                    total += a;
+                }
+            }
+            print(total);
+        }
+
+        Calculator.prototype.minus =function(){
+            return this.total-this.avg;
+        }
+
+        Calculator.prototype.multiply =function(){
+            return this.total*this.avg;
+        }
+
+        Calculator.prototype.divide =function(){
+            return this.total/this.avg;
+        }
+
+        function print(result){
+            $("#show").val(result);
+        }
+
+        $(document).ready(function(){
+            let calcu = new Calculator();
+        })
+    </script>
+</head>
+<body>
+    <div class="scores">
+        <input type="text" id="kor" placeholder="국어"><br>
+        <input type="text" id="math" placeholder="수학"><br>
+        <input type="text" id="eng" placeholder="영어"><br>
+        <input type="text" id="soc" placeholder="사회"><br>
+    </div>
+    <p>버튼을 눌러 결과를 확인하세요</p>
+    <div clas="buts">
+        <button id="add">더하기</button>
+        <button id="subs">빼기</button>
+        <button id="multi">곱하기</button>
+        <button id="dvid">나누기</button>
+        <hr>
+        <input type="text" id="show" placeholder="결과는 여기에">
+    </div>
+    
+</body>
+</html>

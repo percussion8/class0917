@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> </title>
+
+    <style>
+        body {
+            font-size:9pt;
+        }
+        div.image-container{
+            position: relative;
+            border:1px solid #000;
+            height:600px;
+        }
+
+        div.image-container img{
+            position: absolute;
+            left:0;
+            top:0;
+            width:120px;
+        }
+
+
+
+
+    </style>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+        /*
+
+            미션 03: 심플 갤러리를 클래스로 만들기
+            함수 단위 코딩으로 만들어진 심플 갤러리를 프로토타입 클래스로 만들어 주세요.
+
+        */
+
+        function SimpleGallary(key){
+            this.$images = $(key.selector);
+            // this.$images = null;
+            this.count = null;;
+            this.imageWidth = null;
+            this.imageHeight = null;
+            this.setDeafaultValue();
+            //this.init(selector);
+
+
+            
+            this.count = key.count;
+
+            
+        }
+
+        SimpleGallary.prototype.setDeafaultValue = function(){
+            if(!this.count){
+                this.count = 5;
+            }
+            if(!this.imageWidth){
+                this.imageWidth = 150;
+            }
+            if(!this.imageHeight){
+                this.imageHeight = 150;
+            }
+        }
+
+        SimpleGallary.prototype.init = function(selector){ //왜 생성자에서 안하고 굳이 init을 호출해서??
+            this.$images = $(selector);
+
+        }
+        //이미지 배열하기
+        SimpleGallary.prototype.showGallery = function(){
+            // 이미지 개수 구하기.
+            var length = this.$images.length;
+
+            // 이미지 배열하기.
+            for(var i=0;i<length;i++){
+                // n번째 이미지 구하기
+                var $img = this.$images.eq(i);
+
+                // 위치 값 구하기
+                var x = 100+((i%this.count)*this.imageWidth);
+                var y = 100+(parseInt(i/this.count)*this.imageHeight);
+
+                // 위치 설정
+                $img.css({
+                    left:x,
+                    top:y
+                });
+            }
+        }
+
+        $(document).ready(function(){
+            // 이미지  찾기
+            // var $images1 = $("#container1 img");
+            // var $images2 = $("#container2 img");
+
+
+            // // 이미지 배열 하기
+            // showGallery($images1, 6,150,150);
+            // showGallery($images2, 4,200,200);
+
+            let cont1 = new SimpleGallary({selector : "#container1 img", count: 6});
+            let cont2 = new SimpleGallary({selector : "#container2 img", count: 4});
+
+            console.log(cont1.$images);
+            console.log(cont1.count);
+
+            cont1.showGallery();
+            cont2.showGallery();
+
+            // cont1.showGallery();
+            // cont2.showGallery();
+
+        });
+
+    </script>
+</head>
+    
+<body>    
+    <p>container1</p>
+    <div class="image-container" id="container1">
+    
+        <img src="banners/1.png" >
+        <img src="banners/2.png" >
+        <img src="banners/3.png" >
+        <img src="banners/4.png" >
+        <img src="banners/5.png" >
+        <img src="banners/6.png" >
+        <img src="banners/7.png" >
+        <img src="banners/8.png" >   
+    </div>
+    <p>container2</p>
+    
+    <div class="image-container" id="container2">         
+        <img src="banners/1.png" >
+        <img src="banners/2.png" >
+        <img src="banners/3.png" >
+        <img src="banners/4.png" >
+        <img src="banners/5.png" >
+        <img src="banners/6.png" >
+        <img src="banners/7.png" >
+        <img src="banners/8.png" >   
+    </div>
+</body>
+
+</html>

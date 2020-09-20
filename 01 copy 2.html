@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var arr = [1,2,3,4];
+        var forEach = (array, fn) => {
+            for(var i=0; i<array.length; i++){
+                fn(array[i])
+            }
+        } 
+        //forEach(arr, (data) => console.log(data)); //내가 생성한 함수
+
+        //[1,2,3,4,5].forEach(i => console.log(i*2)); //기본 제공되는 함수
+
+
+        const forEachObject = (obj, fn) => {
+            for (var key in obj){ //key 갯수만큼 반복
+                if(obj.hasOwnProperty(key)){   //key가 있기때문에 true 반환
+                    fn(key, obj[key]);
+                }
+            }
+        }
+        let object = { a:1, b:2, c:"박성연"};
+        //forEachObject(object, (a, b)=>console.log(a + " : " + b))
+
+
+        const unless = (predicate, fn) => {
+            if(!predicate){
+                fn()
+            }
+        }
+
+        // forEach([1,2,3,4,5,6,7], (number) => {
+        //     unless((number%2), ()=> console.log(number + "짝수임")) //2로 나누면 홀수는 1(ture), 짝수는 0(false)이기 때문에 unless에서 if조건이 !data 되어야만 원하는 결과를 얻을 수 있음
+        // })
+
+
+        const times = (times, fn) => {
+            for(var i=0; i<times; i++){
+                fn(i);
+            }
+        }
+
+        // times(100, function(n){
+        //     unless(n%2, function(){
+        //         console.log(n, "짝수임");
+        //     })
+        // })
+
+
+        const every = (arr, fn) => {  //모두가 true이면 true반환, 하나라도 false면 false반환
+            let result = true;
+            for(var i=0; i<arr.length; i++){
+                result = result && fn(arr[i]);
+            }
+            return result;
+        }
+
+        //console.log(every([NaN, 8, NaN], isNaN));
+
+
+        // const every = (arr, fn) => {  //위의 every와 같은 기능
+        //     let result = true;
+        //     for(var value of arr){
+        //         result = result && fn(value);
+        //     }
+        //     return result;
+        // }
+
+        const some = (arr, fn) => {  //모두가 true이면 true반환, 하나라도 false면 false반환
+            let result = false;
+            for(var value of arr){
+                result = result || fn(value);   //||이기때문에(or) 하나라도 true면 반복문 결과는 true
+            }
+            return result;
+        }
+
+        //console.log(some([9,NaN,9], isNaN));  
+        
+        
+        var fruit = ["cherries", "apples", "bananas"];
+        //console.log(fruit.sort());  //abc순으로 정렬
+
+        var people = [
+            {firstname: "aaFirstName", lastname: "cclastName"},
+            {firstname: "ccFirstName", lastname: "aalastName"},
+            {firstname:"bbFirstName", lastname:"bblastName"}
+        ];
+
+        people.sort((a,b) => {
+            return ((a.firstname<b.firstname) ? -1 : (a.firstname>b.firstname) ? 1 :0) })
+
+        //console.log(people);
+
+
+        const sortBy = (property) => {
+            return (a, b) => {
+                var result = ((a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0);
+                return result;
+            }
+        }
+
+        var first = people.sort(sortBy("firstname"));
+        var last = people.sort(sortBy("lastname"));
+        //console.log(first);
+        //console.log(last);
+
+        const tap = (value) => 
+            (fn) => {
+                typeof(fn) === 'function' && fn(value),
+                console.log(value);
+            }
+
+        //tap("fun")((it) => console.log("value is ", it));
+
+        // forEach([1,2,3],(a) => 
+        //     tap(a)(() =>{
+        //         console.log(a);
+        //     })
+        // )
+
+
+        //console.log([1,2,3].map(a => a*a));
+        //console.log(['1','2','3'].map(parseInt));
+
+
+        const unary = (fn) => fn.length === 1 ? fn : (arg) => fn(arg); //하나면 그냥 실행, 여러개면 반복실행
+        //console.log(['1','2','3'].map(unary(parseInt)));
+
+
+        const once = (fn) => {
+            let done = false;
+            return function() {
+                return done? console.log("이미 처리되었습니다.") : ((done=true), fn.apply(this, arguments))
+            }
+            
+        }
+
+        var doPayment = once(()=> console.log("지불이 되었습니다."))
+        doPayment();
+        doPayment(); //출력안됨 실수로 반복실행 하지 않게 막아둠 ex.은행
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
